@@ -22,22 +22,17 @@ class xVerUnit:
                             "sim_paths" : [],
                             "sim_waves" : [],
                             "sim_opt"   : [],
+                            "extra_opt" : [],
+                            "post_sim"  : [],
                             "tb_name"   : "tb",
                             "run_opt"   : "-c -onfinish stop -onfinish final"
                             }
-        self.sim_name = "unknown"
-        self.paths = []
-        self.waves = []
-        self.sim_opt = []
-        self.tb_name = "tb"
 
     def set_sim(self, sim_name):
         self.sim_params["sim_name"] = sim_name
-        self.sim_name = sim_name
 
     def set_tb_name(self, tb_name):
         self.sim_params["tb_name"] = tb_name
-        self.tb_name = tb_name
 
     def set_sv_std(self, sv_std):
         self.sim_params["lang_std"][0] = sv_std
@@ -50,19 +45,25 @@ class xVerUnit:
 
     def add_sim_opt(self, sim_opt):
         self.sim_params["sim_opt"].append(sim_opt)
-        self.sim_opt.append(sim_opt)
 
     def add_files(self, path, lib = "work"):
         self.sim_params["sim_paths"].append([path,lib])
-        self.paths.append(path)
 
     def add_wave(self, key, wave):
         self.sim_params["sim_waves"].append([key,wave])
-        self.waves.append([key,wave])
+
+    def add_extra_opt(self, extra_opt):
+        self.sim_params["extra_opt"].append(extra_opt)
+
+    def add_post_sim(self, post_sim):
+        self.sim_params["post_sim"].append(post_sim)
+
+    def clean_post_sim(self):
+        self.sim_params["post_sim"] = []
 
     def gen_script(self):
         tcl_wrapper = 0
-        if( self.sim_name == "Modelsim" ):
+        if( self.sim_params["sim_name"] == "Modelsim" ):
             tcl_wrapper = tcl_modelsim_wrapper(self.sim_params)
         tcl_wrapper.gen_script()
 

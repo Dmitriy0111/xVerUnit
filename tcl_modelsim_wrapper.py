@@ -23,11 +23,14 @@ class tcl_modelsim_wrapper:
         self.tcl_file = open("py_run/" + self.sim_params["test_name"] + ".tcl", "w");
         self.write_comps()
         self.tcl_file.write("\n")
+        self.write_extra_opt()
+        self.tcl_file.write("\n")
         self.write_vsim()
         self.tcl_file.write("\n")
         self.write_waves()
         self.tcl_file.write("\n")
         self.tcl_file.write("run -all\n")
+        self.write_post_sim()
         self.tcl_file.write("\n")
         self.tcl_file.write("quit\n")
 
@@ -55,6 +58,14 @@ class tcl_modelsim_wrapper:
             vsim_str += sim_opt + " "
         vsim_str += "work." + self.sim_params["tb_name"]
         self.tcl_file.write(vsim_str + "\n")
+
+    def write_post_sim(self):
+        for post_sim in self.sim_params["post_sim"]:
+            self.tcl_file.write(post_sim + "\n")
+
+    def write_extra_opt(self):
+        for extra_opt in self.sim_params["extra_opt"]:
+            self.tcl_file.write(extra_opt + "\n")
 
     def write_waves(self):
         for wave in self.sim_params["sim_waves"]:
