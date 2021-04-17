@@ -19,8 +19,8 @@ class tcl_modelsim_wrapper:
         self.tcl_creator_name = tcl_creator_name
 
     def gen_script(self):
-        os.system("mkdir py_run")
-        self.tcl_file = open("py_run/" + self.sim_params["test_name"] + ".tcl", "w");
+        os.system("mkdir {:s}".format(self.sim_params["run_dir"]))
+        self.tcl_file = open(self.sim_params["run_dir"] + "\\" + self.sim_params["test_name"] + ".tcl", "w");
         self.write_comps()
         self.tcl_file.write("\n")
         self.write_extra_opt()

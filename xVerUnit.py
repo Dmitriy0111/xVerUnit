@@ -9,7 +9,7 @@
 
 import os
 
-from tcl_modelsim_wrapper import tcl_modelsim_wrapper
+from xVerUnit.sim_tools.tcl_modelsim_wrapper import tcl_modelsim_wrapper
 
 class xVerUnit:
 
@@ -24,6 +24,7 @@ class xVerUnit:
                             "sim_opt"   : [],
                             "extra_opt" : [],
                             "post_sim"  : [],
+                            "run_dir"   : "run",
                             "tb_name"   : "tb",
                             "run_opt"   : "-c -onfinish stop -onfinish final"
                             }
@@ -45,6 +46,9 @@ class xVerUnit:
 
     def add_sim_opt(self, sim_opt):
         self.sim_params["sim_opt"].append(sim_opt)
+
+    def set_run_dir(self, run_dir):
+        self.sim_params["run_dir"] = run_dir
 
     def add_files(self, path, lib = "work"):
         self.sim_params["sim_paths"].append([path,lib])
@@ -72,6 +76,6 @@ class xVerUnit:
 
     def run_test(self):
         print("Run test : " + self.sim_params["test_name"])
-        os.system("make sim_dir")
-        os.system("cd sim_modelsim && vsim " + self.sim_params["run_opt"] + " -do ../py_run/" + self.test_name + ".tcl")
+        os.system("mkdir sim_modelsim")
+        #os.system("cd sim_modelsim && vsim " + self.sim_params["run_opt"] + " -do ../" + self.sim_params["run_dir"] + "/" + self.test_name + ".tcl")
         print("Finish test : " + self.sim_params["test_name"])
