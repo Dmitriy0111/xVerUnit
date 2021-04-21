@@ -9,7 +9,9 @@
 
 class TestCase:
     def __init__(self,args = [""]):
-        self.name = name
+        self.Name = ""
+        self.TestResult = -1
+        self.ReportPath = ""
     def Setup(self):
         pass
     def Exercise(self):

@@ -77,5 +77,5 @@ class xVerUnit:
     def run_test(self):
         print("Run test : " + self.sim_params["test_name"])
         os.system("mkdir sim_modelsim")
-        #os.system("cd sim_modelsim && vsim " + self.sim_params["run_opt"] + " -do ../" + self.sim_params["run_dir"] + "/" + self.test_name + ".tcl")
+        os.system("cd sim_modelsim && vsim " + self.sim_params["run_opt"] + " -do ../" + self.sim_params["run_dir"] + "/" + self.test_name + ".tcl")
         print("Finish test : " + self.sim_params["test_name"])
